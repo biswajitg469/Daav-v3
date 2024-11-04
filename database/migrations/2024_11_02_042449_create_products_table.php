@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name'); // Product name
             $table->text('description'); // Product description
             $table->decimal('price', 10, 2); // Product price with precision
+            $table->boolean('is_active')->default(true);
             $table->timestamps(); // Created at and updated at timestamps
         });
     }
