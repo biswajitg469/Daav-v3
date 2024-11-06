@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Desing;
 use Illuminate\Http\Request;
 
 class DesignController extends Controller
@@ -11,7 +12,7 @@ class DesignController extends Controller
      */
     public function index()
     {
-        //
+        return View('desing.add_desing');
     }
 
     /**
@@ -27,7 +28,29 @@ class DesignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'design_name' => 'required|string|max:255',
+            'design_desc' => 'required|string',
+        ]);
+
+        try {
+            // dd('dfggfdsg');
+            // Create a new product instance
+            $product = new Desing();
+            $product->name = $request->input('design_name');
+            // dd($product);
+            $product->description = $request->input('design_desc');
+            $product->save();
+            // dd($product);
+
+
+            // Set success message in session
+            return redirect()->back()->with('success', 'Desing added successfully!');
+        } catch (\Exception $e) {
+            // Set error message in session
+            return redirect()->back()->with('error', 'There was an error adding the Desing. Please try again.');
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesignController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login'); // Fixed the view name
 });
+
+// Route::get('/', function () {
+//     return view('auth.register'); // Fixed the view name
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -31,4 +36,8 @@ Route::post('/product_store', [ProductController::class, 'store'])->name('produc
 Route::get('/product_manage', [ProductController::class, 'manage'])->name('product_manage');
 Route::get('/product_edit/{id}', [ProductController::class, 'edit'])->name('product_edit');
 Route::put('/product_update/{id}', [ProductController::class, 'update'])->name('product_update');
-Route::get('/product_delete/{id}', [ProductController::class, 'destroy'])->name('product_delete');  
+Route::get('/product_delete/{id}', [ProductController::class, 'destroy'])->name('product_delete');
+
+//======================================= Desing ===========================================================
+Route::get('/desing', [DesignController::class, 'index'])->name('desing');
+Route::post('/desing_store', [DesignController::class, 'store'])->name('desing_store');
