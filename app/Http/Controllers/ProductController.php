@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -124,5 +125,17 @@ class ProductController extends Controller
 
         // Pass the products to the view
         return view('product.manage', compact('products'));
+    }
+
+    public function downloadPDF()
+    {
+        // Fetch all products
+        $products = Product::all();
+
+        // Load a view and pass the products data to it
+        $pdf = Pdf::loadView('pdf.products', compact('products'));
+
+        // Return the PDF as a download
+        return $pdf->download('products_list.pdf');
     }
 }

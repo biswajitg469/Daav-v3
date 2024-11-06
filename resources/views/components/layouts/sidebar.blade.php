@@ -35,8 +35,8 @@
                 <ul class="treeview-menu">
                     <li><a href="{{url('product')}}" style="color: white;"><i class="fa fa-plus"></i>Add Products</a></li>
                     <li><a href="{{url('product_manage')}}" style="color: white;"><i class="fa fa-cog"></i>Manage Products</a></li>
-                    <li><a href="{{url('desing')}}" style="color: white;"><i class="fa fa-solid fa-pen-nib"></i>Add Design</a></li>
-                    <li><a href="{{url('manage_Desing_View')}}" style="color: white;"><i class="fa fa-solid fa-pen-ruler"></i>Manage Design</a></li>
+                    <li><a href="{{url('design')}}" style="color: white;"><i class="fa fa-solid fa-pen-nib"></i>Add Design</a></li>
+                    <li><a href="{{url('design_manage')}}" style="color: white;"><i class="fa fa-solid fa-pen-ruler"></i>Manage Design</a></li>
                 </ul>
             </li>
             <!-- Menu 3 -->
