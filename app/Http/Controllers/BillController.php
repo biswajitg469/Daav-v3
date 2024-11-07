@@ -11,7 +11,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+        return View('bill.create_estimate_bill');
     }
 
     /**

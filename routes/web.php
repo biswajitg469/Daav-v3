@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DesignController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,4 +46,25 @@ Route::middleware('auth')->group(function () {
     Route::put('/design_update/{id}', [DesignController::class, 'update'])->name('design_update');
     Route::get('/design_delete/{id}', [DesignController::class, 'destroy'])->name('design_delete');
     Route::get('/designs_download', [DesignController::class, 'downloadPDF'])->name('designs_download');
+});
+
+//=========================================  order =====================================================================
+Route::middleware('auth')->group(function () {
+    Route::get('/order', [OrderController::class, 'index'])->name('order');
+    // Route::post('/design_store', [DesignController::class, 'store'])->name('design_store');
+    // Route::get('/design_manage', [DesignController::class, 'manage'])->name('design_manage');
+    // Route::get('/design_edit/{id}', [DesignController::class, 'edit'])->name('design_edit');
+    // Route::put('/design_update/{id}', [DesignController::class, 'update'])->name('design_update');
+    // Route::get('/design_delete/{id}', [DesignController::class, 'destroy'])->name('design_delete');
+    // Route::get('/designs_download', [DesignController::class, 'downloadPDF'])->name('designs_download');
+});
+//=========================================  Bill =====================================================================
+Route::middleware('auth')->group(function () {
+    Route::get('/bill', [BillController::class, 'index'])->name('order');
+    // Route::post('/design_store', [DesignController::class, 'store'])->name('design_store');
+    // Route::get('/design_manage', [DesignController::class, 'manage'])->name('design_manage');
+    // Route::get('/design_edit/{id}', [DesignController::class, 'edit'])->name('design_edit');
+    // Route::put('/design_update/{id}', [DesignController::class, 'update'])->name('design_update');
+    // Route::get('/design_delete/{id}', [DesignController::class, 'destroy'])->name('design_delete');
+    // Route::get('/designs_download', [DesignController::class, 'downloadPDF'])->name('designs_download');
 });
