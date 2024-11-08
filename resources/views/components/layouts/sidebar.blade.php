@@ -12,7 +12,7 @@
             </li>
             <!-- Menu 1 -->
             <li class="treeview">
-                <a href="#" style="color: white;"><i class="fa fa-file-text"></i><span>Bills and Orders</span>
+                <a href="#" style="color: white;"><i class="fa fa-file-text"></i><span>Bills & Orders</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -27,7 +27,7 @@
             </li>
             <!-- Menu 2 -->
             <li class="treeview">
-                <a href="#" style="color: white;"><i class="fa fa-archive"></i><span>Products</span>
+                <a href="#" style="color: white;"><i class="fa fa-archive"></i><span>Products & Designs</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
