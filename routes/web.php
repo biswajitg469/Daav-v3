@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DesignController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,23 +49,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/designs_download', [DesignController::class, 'downloadPDF'])->name('designs_download');
 });
 
-//=========================================  order =====================================================================
+// Order routes
 Route::middleware('auth')->group(function () {
     Route::get('/order', [OrderController::class, 'index'])->name('order');
-    // Route::post('/design_store', [DesignController::class, 'store'])->name('design_store');
-    // Route::get('/design_manage', [DesignController::class, 'manage'])->name('design_manage');
-    // Route::get('/design_edit/{id}', [DesignController::class, 'edit'])->name('design_edit');
-    // Route::put('/design_update/{id}', [DesignController::class, 'update'])->name('design_update');
-    // Route::get('/design_delete/{id}', [DesignController::class, 'destroy'])->name('design_delete');
-    // Route::get('/designs_download', [DesignController::class, 'downloadPDF'])->name('designs_download');
+    // Add other OrderController routes as needed
 });
-//=========================================  Bill =====================================================================
+
+// Bill routes
 Route::middleware('auth')->group(function () {
-    Route::get('/bill', [BillController::class, 'index'])->name('order');
-    // Route::post('/design_store', [DesignController::class, 'store'])->name('design_store');
-    // Route::get('/design_manage', [DesignController::class, 'manage'])->name('design_manage');
-    // Route::get('/design_edit/{id}', [DesignController::class, 'edit'])->name('design_edit');
-    // Route::put('/design_update/{id}', [DesignController::class, 'update'])->name('design_update');
-    // Route::get('/design_delete/{id}', [DesignController::class, 'destroy'])->name('design_delete');
-    // Route::get('/designs_download', [DesignController::class, 'downloadPDF'])->name('designs_download');
+    Route::get('/bill', [BillController::class, 'index'])->name('bill');
+    // Add other BillController routes as needed
+});
+
+// Customer routes
+Route::middleware('auth')->group(function () {
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
+    Route::post('/customer_store', [CustomerController::class, 'store'])->name('customer_store');
+    Route::get('/customer_manage', [CustomerController::class, 'manage'])->name('customer_manage');
+    Route::get('/customer_edit/{id}', [CustomerController::class, 'edit'])->name('customer_edit');
+    Route::put('/customer_update/{id}', [CustomerController::class, 'update'])->name('customer_update');
+    Route::get('/customer_delete/{id}', [CustomerController::class, 'destroy'])->name('customer_delete');
+    Route::get('/customers_download', [CustomerController::class, 'downloadPDF'])->name('customers_download');
 });
