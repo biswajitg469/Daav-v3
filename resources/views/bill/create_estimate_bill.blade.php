@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        <h1>Add Order</h1>
+        <h1>Estimate Bill</h1>
         <div id="response" class="alert alert-success " style="display:none; width: auto;">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             <div class="message"></div>
@@ -456,3 +456,33 @@
         </div><!-- /.modal -->
     </x-slot>
 </x-app-layout>
+<script>
+    $(document).ready(function () {
+        // Add a new row when the add button is clicked
+        $(document).on("click", ".add-row", function (e) {
+            e.preventDefault();
+
+            // Clone the first row in the tbody and clear the input values
+            let newRow = $("#invoice_table tbody tr:first").clone();
+
+            // Reset input values for the new row
+            newRow.find("input").val("");
+            newRow.find(".calculate-sub").val("0.00");
+
+            // Append the cloned row to the tbody
+            $("#invoice_table tbody").append(newRow);
+        });
+
+        // Remove a row when the remove button is clicked
+        $(document).on("click", ".delete-row", function (e) {
+            e.preventDefault();
+
+            // Remove the row only if there are more than one row remaining
+            if ($("#invoice_table tbody tr").length > 1) {
+                $(this).closest("tr").remove();
+            } else {
+                alert("You must have at least one row in the table.");
+            }
+        });
+    });
+</script>
