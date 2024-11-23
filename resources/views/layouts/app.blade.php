@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,10 +24,12 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
     <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+    <!-- Select 2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Custom styles -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="icon" href="{{ asset('images/favicon-16x16.png') }}" type="image/x-icon" height="8" width="8">
+    <link rel="icon" href="{{ asset('images/daav-logo-32x32.png') }}" type="image/x-icon">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -38,6 +41,7 @@
             <h1>{{ $title ?? '' }}</h1>
         </section>
         <section class="content">
+
             {{ $content ?? '' }}
         </section>
     </div>
@@ -61,6 +65,8 @@
     <!-- <script src="{{ asset('js/scripts.js') }}"></script> -->
     <!-- AdminLTE -->
     <script src="{{ asset('js/app.min.js') }}"></script>
+    <!-- Select 2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     {{ $scripts ?? '' }}
 </body>

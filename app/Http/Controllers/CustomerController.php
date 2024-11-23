@@ -107,4 +107,10 @@ class CustomerController extends Controller
         // Pass the designs to the view
         return view('customer.manage', compact('customers'));
     }
+
+    public function fetchCustomers()
+    {
+        $customers = Customer::all(); // Fetch all customers from the database
+        return response()->json($customers);
+    }
 }

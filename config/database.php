@@ -96,6 +96,18 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
+        'pgsql1' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'medical'),
+            'username' => env('DB_USERNAME', 'postgres'),
+            'password' => env('DB_PASSWORD', '123'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'invoice',
+            'sslmode' => 'prefer',
+        ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

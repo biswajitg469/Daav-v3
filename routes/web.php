@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/product_update/{id}', [ProductController::class, 'update'])->name('product_update');
     Route::get('/product_delete/{id}', [ProductController::class, 'destroy'])->name('product_delete');
     Route::get('/products_download', [ProductController::class, 'downloadPDF'])->name('products_download');
+
 });
 
 // Design routes
@@ -52,6 +53,10 @@ Route::middleware('auth')->group(function () {
 // Order routes
 Route::middleware('auth')->group(function () {
     Route::get('/order', [OrderController::class, 'index'])->name('order');
+    Route::get('/fetch-customers', [CustomerController::class, 'fetchCustomers'])->name('fetch-customers');
+    Route::get('/fetch-products', [ProductController::class, 'fetchProduct'])->name('fetch-products');
+
+
     // Add other OrderController routes as needed
 });
 
@@ -70,4 +75,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/customer_update/{id}', [CustomerController::class, 'update'])->name('customer_update');
     Route::get('/customer_delete/{id}', [CustomerController::class, 'destroy'])->name('customer_delete');
     Route::get('/customers_download', [CustomerController::class, 'downloadPDF'])->name('customers_download');
+    Route::get('/fetch-customers', [CustomerController::class, 'fetchCustomers'])->name('fetch.customers');
+
 });

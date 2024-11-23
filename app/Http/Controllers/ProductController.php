@@ -138,4 +138,10 @@ class ProductController extends Controller
         // Return the PDF as a download
         return $pdf->download('products_list.pdf');
     }
+
+    public function fetchProduct()
+    {
+        $products = Product::all(); // Fetch all products from the database
+        return response()->json($products);
+    }
 }
