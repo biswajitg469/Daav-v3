@@ -323,73 +323,14 @@
 
 
                 </div>
-
-
-                <div class="col-xs-6 no-padding-right">
-                    <div class="row">
-                        <div class="col-xs-4 col-xs-offset-5">
-                            <strong>Sub Total:</strong>
-                        </div>
-                        <div class="col-xs-3">
-                            <span class="invoice-sub-total">0.00</span>
-                            <input type="hidden" name="invoice_subtotal" id="invoice_subtotal">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4 col-xs-offset-5">
-                            <strong>Discount:</strong>
-                        </div>
-                        <div class="col-xs-3">
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-addon"></span>
-                                <input type="text" class="form-control calculate discount" name="invoice_discount"
-                                    aria-describedby="sizing-addon1" placeholder="0.00">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4 col-xs-offset-5">
-                            <strong class="shipping">Shipping:</strong>
-                        </div>
-                        <div class="col-xs-3">
-                            <div class="input-group input-group-sm">
-                                <span class="input-group-addon"> CURRENCY </span>
-                                <input type="text" class="form-control calculate shipping" name="invoice_shipping"
-                                    aria-describedby="sizing-addon1" placeholder="0.00">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-4 col-xs-offset-5">
-                            <strong>TAX/VAT:</strong><br>Remove TAX/VAT <input type="checkbox" class="remove_vat">
-                        </div>
-                        <div class="col-xs-3">
-                            CURRENCY <span class="invoice-vat">0.00</span>
-                            <input type="hidden" name="invoice_vat" id="invoice_vat">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-4 col-xs-offset-5">
-                            <strong>Total:</strong>
-                        </div>
-                        <div class="col-xs-3">
-                            CURRENCY <span class="invoice-total">0.00</span>
-                            <input type="hidden" name="invoice_total" id="invoice_total">
-                        </div>
-                    </div>
-                </div>
-
-
                 <div class="col-xs-6">
                     <input type="email" name="custom_email" id="custom_email" class="custom_email_textarea"
                         placeholder="Enter custom email if you wish to override the default invoice type email msg!"></input>
                 </div>
 
-                <div class="col-xs-6 margin-top btn-group">
+                <div class="col-xs-7 margin-top btn-group">
                     <input type="submit" id="action_create_invoice" class="btn btn-success float-right"
-                        value="Create Invoice" data-loading-text="Creating...">
+                        value="Create Order" data-loading-text="Creating...">
                 </div>
 
 
