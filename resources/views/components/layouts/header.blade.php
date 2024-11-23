@@ -2,6 +2,7 @@
 
     <!-- Logo -->
     <a href="" class="logo" style="background: green;color: white;">
+        
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>IN</b>MS</span>
         <!-- logo for regular state and mobile devices -->

@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <h1>DAAV</h1>
+<img src="{{asset('images/daav-logo.png')}}" alt="LOGO" height="60" width="60"/>
     <h2>Designs List</h2>
     <table>
         <thead>

@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <h1>DAAV</h1>
+<!-- <img src="{{asset('images/daav-logo.png')}}" alt="LOGO" /> -->
     <h2>Products List</h2>
     <table>
         <thead>

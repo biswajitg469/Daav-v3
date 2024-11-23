@@ -26,6 +26,7 @@
     <!-- Custom styles -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="icon" href="{{ asset('images/favicon-16x16.png') }}" type="image/x-icon" height="8" width="8">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
