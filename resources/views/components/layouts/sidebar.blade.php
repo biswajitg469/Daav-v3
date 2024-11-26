@@ -85,8 +85,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#" style="color: white;"><i class="fa fa-plus"></i>Add User</a></li>
-                    <li><a href="#" style="color: white;"><i class="fa fa-cog"></i>Manage Users</a></li>
+                    <li><a href="{{url('useradd')}}" style="color: white;"><i class="fa fa-plus"></i>Add User</a></li>
+                    <li><a href="{{url('userlist')}}" style="color: white;"><i class="fa fa-cog"></i>Manage Users</a></li>
                 </ul>
             </li>
 

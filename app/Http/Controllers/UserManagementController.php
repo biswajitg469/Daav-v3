@@ -11,7 +11,11 @@ class UserManagementController extends Controller
      */
     public function index()
     {
-        //
+        return View('profile.add_user');
+    }
+    public function usermanage()
+    {
+        return View('profile.user_list');
     }
 
     /**

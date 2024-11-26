@@ -6,7 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DesignController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\CustomerController;    
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -76,5 +77,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/customer_delete/{id}', [CustomerController::class, 'destroy'])->name('customer_delete');
     Route::get('/customers_download', [CustomerController::class, 'downloadPDF'])->name('customers_download');
     Route::get('/fetch-customers', [CustomerController::class, 'fetchCustomers'])->name('fetch.customers');
+
+});
+// User routes
+Route::middleware('auth')->group(function () {
+    Route::get('/useradd', [UserManagementController::class, 'index'])->name('useradd');
+    Route::get('/userlist', [UserManagementController::class, 'usermanage'])->name('userlist');
 
 });
