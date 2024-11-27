@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
 // Order routes
 Route::middleware('auth')->group(function () {
     Route::get('/order', [OrderController::class, 'index'])->name('order');
+    Route::post('order_store', [OrderController::class, 'index'])->name('order_store');
     Route::get('/fetch-customers', [CustomerController::class, 'fetchCustomers'])->name('fetch-customers');
     Route::get('/fetch-products', [ProductController::class, 'fetchProduct'])->name('fetch-products');
 
