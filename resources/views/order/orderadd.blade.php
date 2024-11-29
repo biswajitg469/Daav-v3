@@ -216,7 +216,7 @@
                                         <input type="text" class="form-control form-group-sm item-input order_product"
                                             name="order_product[]" id="order_product[]"
                                             placeholder="Enter Design Name OR Description">
-                                        <input type="text" id="order_product_id" name="order_product_id[]">
+                                        <input type="text" id="order_product_id" name="order_product_id[]" hidden>
                                         <p class="item-select"><a href="#" data-toggle="modal"
                                                 data-target="#productModal">select a product</a></p>
                                     </div>
@@ -238,7 +238,7 @@
                                         <input type="text"
                                             class="form-control form-group-sm design-input order_door_skin"
                                             name="order_door_skin[]" placeholder="Enter Door Skin">
-                                        <input type="text" id="order_design_id" name="order_design_id[]">
+                                        <input type="text" id="order_design_id" name="order_design_id[]" hidden>
                                         <p class="design-select"><a href="#" data-toggle="modal"
                                                 data-target="#designModal">select a Skin</a></p>
                                     </div>
