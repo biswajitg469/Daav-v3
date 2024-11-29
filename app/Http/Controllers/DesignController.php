@@ -113,13 +113,19 @@ class DesignController extends Controller
 
     public function downloadPDF()
     {
-        // Fetch all products
+        // Fetch all Designs
         $designs = Design::all();
 
-        // Load a view and pass the products data to it
+        // Load a view and pass the Designs data to it
         $pdf = Pdf::loadView('pdf.designs', compact('designs'));
 
         // Return the PDF as a download
         return $pdf->download('designs_list.pdf');
+    }
+
+    public function fetchDesign()
+    {
+        $designs = Design::all(); // Fetch all Designs from the database
+        return response()->json($designs);
     }
 }

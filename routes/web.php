@@ -49,14 +49,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/design_update/{id}', [DesignController::class, 'update'])->name('design_update');
     Route::get('/design_delete/{id}', [DesignController::class, 'destroy'])->name('design_delete');
     Route::get('/designs_download', [DesignController::class, 'downloadPDF'])->name('designs_download');
+    Route::get('/fetch-designs', [DesignController::class, 'fetchDesign'])->name('fetch-design');
 });
 
 // Order routes
 Route::middleware('auth')->group(function () {
     Route::get('/order', [OrderController::class, 'index'])->name('order');
-    Route::post('order_store', [OrderController::class, 'index'])->name('order_store');
+    Route::post('order_store', action: [OrderController::class, 'store'])->name('order_store');
     Route::get('/fetch-customers', [CustomerController::class, 'fetchCustomers'])->name('fetch-customers');
     Route::get('/fetch-products', [ProductController::class, 'fetchProduct'])->name('fetch-products');
+    Route::get('/fetch-designs', [DesignController::class, 'fetchDesign'])->name('fetch-design');
 
 
     // Add other OrderController routes as needed

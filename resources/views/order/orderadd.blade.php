@@ -11,9 +11,25 @@
         </div>
         <form method="post" id="create_order" role="form" action="{{route('order_store')}}">
             <input type="hidden" name="action" value="create_order">
-
+            {{csrf_field()}}
             <div class="row">
                 <div class="col-xs-4"></div>
+                @if (Session::has('success'))
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-check"></i> Success!</h4>
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+
+                @if (Session::has('error'))
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Error!</h4>
+                        {{ Session::get('error') }}
+                    </div>
+                @endif
+
                 <div class="col-xs-8 text-right">
                     <div class="row">
                         <!-- Datepicker Input -->
@@ -32,7 +48,7 @@
                         <div class="input-group col-xs-4 float-right">
                             <span class="input-group-addon">{{$INVOICE_PREFIX}}</span>
                             <input type="text" name="order_id" id="order_id" class="form-control required"
-                                placeholder="Order Number" aria-describedby="sizing-addon1" value="" />
+                                placeholder="Order Number" aria-describedby="sizing-addon1" value="{{$orderId}}" />
                         </div>
                     </div>
                 </div>
@@ -222,7 +238,9 @@
                                         <input type="text"
                                             class="form-control form-group-sm design-input order_door_skin"
                                             name="order_door_skin[]" placeholder="Enter Door Skin">
-                                        <p class="design-select">or <a href="#">select a Skin</a></p>
+                                        <input type="text" id="order_design_id" name="order_design_id[]">
+                                        <p class="design-select"><a href="#" data-toggle="modal"
+                                                data-target="#designModal">select a Skin</a></p>
                                     </div>
                                 </td>
 
@@ -293,63 +311,6 @@
                 </div>
         </form>
 
-        <div id="insert" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Select Product</h4>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="selected">Add</button>
-                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-
-        <div id="insert_d" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Select Design</h4>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="selected">Add</button>
-                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-        <div id="insert_customer" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Select An Existing Customer</h4>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-
-
 
         <!-- Customer Modal -->
         <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel"
@@ -399,6 +360,38 @@
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be populated dynamically via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Design Modal -->
+        <div class="modal fade" id="designModal" tabindex="-1" role="dialog" aria-labelledby="designModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="designModalLabel">Select Design</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered" id="designTable">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -415,26 +408,20 @@
 </x-app-layout>
 <script>
     $(document).ready(function () {
-        // Add a new row when the add button is clicked
+        // Add a new row to the table
         $(document).on("click", ".add-row", function (e) {
-            e.preventDefault();
+            e.preventDefault(); // Prevent default form submission
 
-            // Clone the first row in the tbody and clear the input values
+            // Clone the first row, clear its input values, and append it to the table
             let newRow = $("#order_table tbody tr:first").clone();
-
-            // Reset input values for the new row
-            newRow.find("input").val("");
-            newRow.find(".calculate-sub").val("0.00");
-
-            // Append the cloned row to the tbody
+            // newRow.find("input").val(""); // Clear all input fields in the new row
+            newRow.removeClass("active-row"); // Remove any active-row class
             $("#order_table tbody").append(newRow);
         });
 
-        // Remove a row when the remove button is clicked
+        // Delete a row from the table
         $(document).on("click", ".delete-row", function (e) {
-            e.preventDefault();
-
-            // Remove the row only if there are more than one row remaining
+            e.preventDefault(); // Prevent default form submission
             if ($("#order_table tbody tr").length > 1) {
                 $(this).closest("tr").remove();
             } else {
@@ -442,17 +429,15 @@
             }
         });
 
-        // Fetch customers when the modal is opened
+        // Customer Modal: Populate customer data
         $('#customerModal').on('show.bs.modal', function () {
             $.ajax({
-                url: '/fetch-customers', // Laravel route to fetch customers
+                url: '/fetch-customers',
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
                     let customerTable = $('#customerTable');
-                    customerTable.empty(); // Clear the table body
-
-                    // Loop through the customer data and append rows
+                    customerTable.empty();
                     data.forEach(customer => {
                         customerTable.append(`
                         <tr>
@@ -490,8 +475,9 @@
             });
         });
 
-        // Handle "Select" button click for customers
-        $(document).on('click', '.select-btn', function () {
+        // Handle customer selection
+        $(document).on('click', '.select-btn', function (e) {
+            e.preventDefault(); // Prevent default form submission
             const c_id = $(this).data('id');
             const c_name = $(this).data('name');
             const c_address1 = $(this).data('address1');
@@ -507,8 +493,6 @@
             const c_town_ship = $(this).data('town_ship');
             const c_postcode_ship = $(this).data('postcode_ship');
             const c_state_ship = $(this).data('state_ship');
-
-            // Populate form fields
             $('#customer_id').val(c_id);
             $('#customer_name').val(c_name);
             $('#customer_address_1').val(c_address1);
@@ -524,12 +508,10 @@
             $('#customer_town_ship').val(c_town_ship);
             $('#customer_postcode_ship').val(c_postcode_ship);
             $('#customer_state_ship').val(c_state_ship);
-
-            // Close modal
             $('#customerModal').modal('hide');
         });
 
-        // Fetch products when the modal is opened
+        // Product Modal: Initialize DataTable and populate rows
         $('#productModal').on('show.bs.modal', function () {
             const productTable = $('#productTable');
             if (!$.fn.DataTable.isDataTable(productTable)) {
@@ -571,25 +553,74 @@
             }
         });
 
-        // Handle "Select" button click for products
-        $(document).on('click', '.select-btn-product', function () {
+        // Handle product selection
+        $(document).on('click', '.select-btn-product', function (e) {
+            e.preventDefault(); // Prevent default form submission
             const p_id = $(this).data('id');
             const p_name = $(this).data('name');
-
-            // Populate the first empty row or add a new one
-            const lastRow = $("#order_table tbody tr:last");
-            if (lastRow.find('input[name="order_product_id[]"]').val() === "") {
-                lastRow.find('input[name="order_product_id[]"]').val(p_id);
-                lastRow.find('input[name="order_product[]"]').val(p_name);
-            } else {
-                $(".add-row").click(); // Add a new row
-                const newRow = $("#order_table tbody tr:last");
-                newRow.find('input[name="order_product_id[]"]').val(p_id);
-                newRow.find('input[name="order_product[]"]').val(p_name);
-            }
-
-            // Close modal
+            const activeRow = $("#order_table tbody tr.active-row");
+            activeRow.find('input[name="order_product_id[]"]').val(p_id);
+            activeRow.find('input[name="order_product[]"]').val(p_name);
             $('#productModal').modal('hide');
+        });
+
+        // Design Modal: Initialize DataTable and populate rows
+        $('#designModal').on('show.bs.modal', function () {
+            const designTable = $('#designTable');
+            if (!$.fn.DataTable.isDataTable(designTable)) {
+                designTable.DataTable({
+                    ajax: {
+                        url: '/fetch-designs',
+                        type: 'GET',
+                        dataSrc: ''
+                    },
+                    columns: [
+                        { data: 'id' },
+                        { data: 'name' },
+                        { data: 'description' },
+                        {
+                            data: null,
+                            render: function (data) {
+                                return `
+                                    <button class="btn btn-primary btn-sm select-btn-design" 
+                                        data-id="${data.id}" 
+                                        data-name="${data.name}">
+                                        Select
+                                    </button>`;
+                            }
+                        }
+                    ],
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    lengthChange: true,
+                    pageLength: 5,
+                    language: {
+                        search: "Filter records:",
+                        lengthMenu: "Show _MENU_ entries",
+                        zeroRecords: "No matching records found",
+                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                        infoEmpty: "Showing 0 to 0 of 0 entries"
+                    }
+                });
+            }
+        });
+
+        // Handle design selection
+        $(document).on('click', '.select-btn-design', function (e) {
+            e.preventDefault(); // Prevent default form submission
+            const d_id = $(this).data('id');
+            const d_name = $(this).data('name');
+            const activeRow = $("#order_table tbody tr.active-row");
+            activeRow.find('input[name="order_design_id[]"]').val(d_id);
+            activeRow.find('input[name="order_door_skin[]"]').val(d_name);
+            $('#designModal').modal('hide');
+        });
+
+        // Activate a row on click
+        $(document).on("click", "#order_table tbody tr", function () {
+            $("#order_table tbody tr").removeClass("active-row");
+            $(this).addClass("active-row");
         });
     });
 </script>
