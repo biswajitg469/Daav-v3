@@ -20,7 +20,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="{{ asset('images/user_image.png') }}" class="user-image img-circle elevation-2"
                             alt="User Image">
-                        <span class="d-none d-md-inline user">{{ Auth::user()->name }}</span>
+                        <span class="d-none d-md-inline user">{{ Auth::user()->username }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <li class="dropdown-item">

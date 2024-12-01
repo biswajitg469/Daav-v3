@@ -8,5 +8,5 @@ class OrderSlip extends Model
 {
     protected $connection = 'pgsql1';
 
-    protected $table 
+    protected $table='order_info';
 }

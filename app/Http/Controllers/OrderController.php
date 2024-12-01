@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -40,6 +41,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $designation = Auth::user()->designation_id;
+        $user_id = Auth::user()->id;
+        $user_name = Auth::user()->name;
         // Validate incoming request
         $request->validate([
             'customer_id' => 'required|integer',
@@ -101,6 +105,9 @@ class OrderController extends Controller
                     'is_active' => 1,
                     'created_at' => now(),
                     'updated_at' => now(),
+                    'created_by' => $user_id,
+                    'username' => $user_name,
+                    'designation_id' => $designation
                 ];
             }
     
@@ -132,7 +139,7 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -158,4 +165,6 @@ class OrderController extends Controller
     {
         //
     }
+
+    manage{}
 }

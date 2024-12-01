@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Product routes
 Route::middleware('auth')->group(function () {
@@ -82,9 +82,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/fetch-customers', [CustomerController::class, 'fetchCustomers'])->name('fetch.customers');
 
 });
-// User routes
+// User management routes
 Route::middleware('auth')->group(function () {
     Route::get('/useradd', [UserManagementController::class, 'index'])->name('useradd');
     Route::get('/userlist', [UserManagementController::class, 'usermanage'])->name('userlist');
+    Route::post('/user_store', [UserManagementController::class, 'store'])->name('user_store');
 
+    // Routes for DataTable, Edit, Update, Delete
+    Route::get('/users', [UserManagementController::class, 'getUsers'])->name('user.list');
+    Route::get('/user/{id}/edit', [UserManagementController::class, 'edit']);
+    Route::put('/user/{id}', [UserManagementController::class, 'update']);
+    Route::delete('/user/{id}', [UserManagementController::class, 'destroy']);
 });
