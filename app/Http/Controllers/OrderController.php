@@ -16,17 +16,17 @@ class OrderController extends Controller
     {
         // Retrieve the latest ID from the invoice.order_info table
         $latestOrderId = DB::table('invoice.order_info')->latest('id')->value('id');
-        
+
         // Calculate the next ID (i.e., latest ID + 1)
         $nextOrderId = $latestOrderId ? $latestOrderId + 1 : 1;  // If no records exist, start from 1
-        
+
         // Dump the next ID for debugging
         // dd($nextOrderId);
-        
+
         // Pass the nextOrderId to the view
         return view('order.orderadd', ['orderId' => $nextOrderId]);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -59,9 +59,9 @@ class OrderController extends Controller
             'order_product_qty.*' => 'required|integer',
             'order_door_skin.*' => 'required|string', // Added validation for design_name
         ]);
-    
+
         DB::beginTransaction();
-    
+
         try {
             // Insert data into invoice.order_info
             $orderInfoId = DB::table('invoice.order_info')->insertGetId([
@@ -73,7 +73,7 @@ class OrderController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-    
+
             // Prepare data for invoice.order_item
             $orderItems = [];
             $products = $request->input('order_product');
@@ -87,7 +87,7 @@ class OrderController extends Controller
             $cutWidths = $request->input('order_billing_width');
             $quantities = $request->input('order_product_qty');
             $doorSkins = $request->input('order_door_skin'); // Fetching design_name array
-    
+
             foreach ($products as $index => $product) {
                 $orderItems[] = [
                     'order_id' => $orderInfoId,
@@ -110,36 +110,36 @@ class OrderController extends Controller
                     'designation_id' => $designation
                 ];
             }
-    
+
             // Insert data into invoice.order_item
             DB::table('invoice.order_item')->insert($orderItems);
-    
+
             DB::commit();
-    
+
             // Set success message in session
             Session::flash('success', 'Order created successfully.');
-    
+
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
-    
+
             // Log the exception (optional)
             \Log::error('Order creation failed: ' . $e->getMessage());
-    
+
             // Set error message in session
             Session::flash('error', 'Failed to create order. Please try again.');
-    
+
             return redirect()->back()->withInput();
         }
     }
-    
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        
+
     }
 
     /**
@@ -166,5 +166,5 @@ class OrderController extends Controller
         //
     }
 
-    manage{}
+
 }
