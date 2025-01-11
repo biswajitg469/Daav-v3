@@ -31,9 +31,9 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function manage_order_Bill_View()
     {
-        //
+        return view('order.manage_order_Bill_View');
     }
 
     /**
